@@ -1,0 +1,368 @@
+{
+  "agent_id": "",
+  "channel": "voice",
+  "last_modification_timestamp": 1760587184350,
+  "agent_name": "Conversation Flow Agent",
+  "response_engine": {
+    "type": "conversation-flow",
+    "version": 15,
+    "conversation_flow_id": "conversation_flow_ed4771bae259"
+  },
+  "webhook_url": "https://rahul777655.app.n8n.cloud/webhook/setiment_analysis",
+  "webhook_timeout_ms": 30000,
+  "language": "hi-IN",
+  "opt_out_sensitive_data_storage": false,
+  "data_storage_setting": "everything",
+  "opt_in_signed_url": false,
+  "post_call_analysis_data": [
+    {
+      "name": "detailed_callsummary",
+      "description": "detailed call summary after end the call of user",
+      "type": "string",
+      "examples": [],
+      "required": true
+    }
+  ],
+  "version": 15,
+  "is_published": false,
+  "version_title": "V.0",
+  "post_call_analysis_model": "gpt-4o-mini",
+  "pii_config": {
+    "mode": "post_call",
+    "categories": []
+  },
+  "voice_id": "cartesia-Anthony",
+  "voice_temperature": 1,
+  "voice_speed": 0.84,
+  "volume": 1,
+  "max_call_duration_ms": 3600000,
+  "interruption_sensitivity": 0.9,
+  "allow_user_dtmf": true,
+  "user_dtmf_options": {},
+  "retellLlmData": null,
+  "conversationFlow": {
+    "conversation_flow_id": "conversation_flow_ed4771bae259",
+    "version": 15,
+    "global_prompt": "You are a friendly and professional real estate AI assistant speaking in Hinglish (mix of Hindi and English).\nYour main goal is to help users find their dream property by collecting some key details politely and naturally during the conversation.\n\nAlways keep the tone warm, respectful, and conversational — like a helpful real estate advisor.\n\nYour task is to collect the following details in order:\n\nName\n\nPhone Number\n\nLocation / Preferred Area\n\nProperty Type (Flat, Villa, Plot, Commercial, etc.)\n\nBudget (approximate)\n\nTour Date (when they’d like to visit the property)\n\nOnce all information is collected, confirm the details back in a single sentence, for example:\n“Just to confirm, you’re {{name}}, looking for a {{property_type}} in {{location}} with a budget around ₹{{budget}}, and you’d like to schedule a tour on {{tour_date}}, right?”\n\nIf the user says yes, reply with a friendly line like:\n“Perfect! Our property advisor will contact you shortly to finalize the visit. Thank you for your time 😊”\n\nTone & Style Guidelines:\n\nUse Hinglish naturally (Example: “Aapka naam kya hai?” instead of pure Hindi or English)\n\nKeep responses short and human-like (1–2 lines max)\n\nNever ask all questions at once — one question per step\n\nIf the user gives unclear info, politely confirm\n\nMaintain a helpful, trustworthy, and professional vibe throughout",
+    "nodes": [
+      {
+        "instruction": {
+          "type": "prompt",
+          "text": "नमस्ते! 👋\nमैं आपकी मदद करने के लिए यहाँ हूँ ताकि हम आपके लिए सबसे बेहतरीन प्रॉपर्टी ढूंढ सकें।\nक्या मैं आपसे कुछ छोटे-छोटे सवाल पूछ सकता हूँ ताकि आपकी ज़रूरत को बेहतर समझ सकूँ?"
+        },
+        "name": "Welcome Node",
+        "edges": [
+          {
+            "id": "edge-1",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "User needs to return the package"
+            }
+          },
+          {
+            "destination_node_id": "node-1760201000757",
+            "id": "edge-2",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "User needs to check the order status"
+            }
+          }
+        ],
+        "start_speaker": "agent",
+        "id": "start-node-1760196236222",
+        "type": "conversation",
+        "display_position": {
+          "x": 550,
+          "y": 0
+        },
+        "knowledge_base_ids": []
+      },
+      {
+        "name": "Name (नाम पूछने के लिए)",
+        "edges": [
+          {
+            "destination_node_id": "node-1760201106834",
+            "id": "edge-1760201000757",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Describe the transition condition"
+            }
+          }
+        ],
+        "id": "node-1760201000757",
+        "type": "conversation",
+        "display_position": {
+          "x": 1226.4835164835165,
+          "y": 49.999999999999986
+        },
+        "instruction": {
+          "type": "prompt",
+          "text": "नमस्ते! आपका नाम क्या है ताकि मैं आपको सही तरीके से संबोधित कर सकूँ?"
+        },
+        "knowledge_base_ids": []
+      },
+      {
+        "name": "Phone (फ़ोन नंबर के लिए)",
+        "edges": [
+          {
+            "destination_node_id": "node-1760201130447",
+            "id": "edge-1760201106834",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Describe the transition condition"
+            }
+          }
+        ],
+        "id": "node-1760201106834",
+        "type": "conversation",
+        "display_position": {
+          "x": 1858.5714285714287,
+          "y": 134.28571428571422
+        },
+        "instruction": {
+          "type": "prompt",
+          "text": "कृपया अपना मोबाइल नंबर बताइए, ताकि हमारी टीम आपसे संपर्क कर सके।"
+        },
+        "knowledge_base_ids": []
+      },
+      {
+        "name": "Location (स्थान / लोकेशन के लिए)",
+        "edges": [
+          {
+            "destination_node_id": "node-1760201164487",
+            "id": "edge-1760201130447",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Describe the transition condition"
+            }
+          }
+        ],
+        "id": "node-1760201130447",
+        "type": "conversation",
+        "display_position": {
+          "x": 467.1868501627855,
+          "y": 554.2426475092591
+        },
+        "instruction": {
+          "type": "prompt",
+          "text": "आप किस लोकेशन या एरिया में प्रॉपर्टी ढूंढ रहे हैं?"
+        },
+        "knowledge_base_ids": []
+      },
+      {
+        "name": "Property Type (प्रॉपर्टी के प्रकार के लिए)",
+        "edges": [
+          {
+            "destination_node_id": "node-1760201181919",
+            "id": "edge-1760201164487",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Describe the transition condition"
+            }
+          }
+        ],
+        "id": "node-1760201164487",
+        "type": "conversation",
+        "display_position": {
+          "x": 1186.1618564678286,
+          "y": 649.4307018546166
+        },
+        "instruction": {
+          "type": "prompt",
+          "text": "आप किस तरह की प्रॉपर्टी में रुचि रखते हैं — फ्लैट, विला, प्लॉट या कोई और?"
+        },
+        "knowledge_base_ids": []
+      },
+      {
+        "name": "budget (बजट के लिए)",
+        "edges": [
+          {
+            "destination_node_id": "node-1760201543740",
+            "id": "edge-1760201181919",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Describe the transition condition"
+            }
+          }
+        ],
+        "id": "node-1760201181919",
+        "type": "conversation",
+        "display_position": {
+          "x": 1589.1873584871123,
+          "y": 637.2119373260981
+        },
+        "instruction": {
+          "type": "prompt",
+          "text": "आपका अनुमानित बजट कितना है? (उदाहरण: ₹30 लाख, ₹50 लाख, ₹1 करोड़ आदि)"
+        },
+        "knowledge_base_ids": []
+      },
+      {
+        "name": "Conversation",
+        "edges": [
+          {
+            "destination_node_id": "node-1760253110839",
+            "id": "edge-1760201543740",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "if say yes or han"
+            }
+          }
+        ],
+        "id": "node-1760201543740",
+        "type": "conversation",
+        "display_position": {
+          "x": 2117.7973795636362,
+          "y": 648.0789112795336
+        },
+        "instruction": {
+          "type": "prompt",
+          "text": "बढ़िया! तो कन्फर्म करने के लिए —\nआपका नाम {{name}}, नंबर {{phone}}, लोकेशन {{location}}, प्रॉपर्टी टाइप {{property_type}}, बजट ₹{{budget}} और विज़िट डेट {{tour_date}} है, सही?"
+        },
+        "knowledge_base_ids": []
+      },
+      {
+        "name": "End Call",
+        "id": "node-1760253110839",
+        "type": "end",
+        "display_position": {
+          "x": 2175.637239482441,
+          "y": 1127.4867249374777
+        },
+        "instruction": {
+          "type": "prompt",
+          "text": "Politely end the call"
+        }
+      },
+      {
+        "tool_id": "tool-1760419810106",
+        "name": "Real State",
+        "edges": [],
+        "id": "node-1760419815826",
+        "type": "function",
+        "tool_type": "local",
+        "speak_during_execution": false,
+        "display_position": {
+          "x": 700.7477678571429,
+          "y": 883.59375
+        },
+        "wait_for_result": true
+      }
+    ],
+    "start_node_id": "start-node-1760196236222",
+    "start_speaker": "agent",
+    "tools": [
+      {
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "parameter_type": "json",
+        "method": "POST",
+        "query_params": {},
+        "description": "",
+        "type": "custom",
+        "url": "https://rahul777655.app.n8n.cloud/webhook/real_state",
+        "tool_id": "tool-1760203397521",
+        "args_at_root": true,
+        "timeout_ms": 120000,
+        "name": "real_state",
+        "response_variables": {},
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Full name of the customer"
+            },
+            "property_type": {
+              "type": "string",
+              "description": "Type of property (Flat, Villa, Plot, etc.)"
+            },
+            "location": {
+              "type": "string",
+              "description": "Preferred property location"
+            },
+            "tour_date": {
+              "type": "string",
+              "description": "Preferred property tour date"
+            },
+            "phone": {
+              "type": "string",
+              "description": "Customer's phone number"
+            },
+            "budget": {
+              "type": "string",
+              "description": "Approximate budget of the customer"
+            }
+          },
+          "required": [
+            "name",
+            "phone",
+            "location",
+            "property_type",
+            "budget",
+            "tour_date"
+          ]
+        }
+      },
+      {
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "parameter_type": "json",
+        "method": "POST",
+        "query_params": {},
+        "description": "",
+        "type": "custom",
+        "url": "https://2fc584761d1d.ngrok-free.app ",
+        "tool_id": "tool-1760419810106",
+        "args_at_root": true,
+        "timeout_ms": 120000,
+        "name": "real_state",
+        "response_variables": {},
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "Transcript": {
+              "type": "string",
+              "description": "Full transcript of the call in text format."
+            },
+            "Number": {
+              "type": "string",
+              "description": "Phone number of the caller, e.g., +919876543210"
+            },
+            "Date": {
+              "type": "string",
+              "description": "The date of the call in YYYY-MM-DD format."
+            },
+            "Name": {
+              "type": "string",
+              "description": "Name of the caller or participant."
+            }
+          },
+          "required": [
+            "Date",
+            "Name",
+            "Number",
+            "Transcript"
+          ]
+        }
+      }
+    ],
+    "model_choice": {
+      "type": "cascading",
+      "model": "gpt-4.1"
+    },
+    "kb_config": {
+      "top_k": 3,
+      "filter_score": 0.6
+    },
+    "begin_tag_display_position": {
+      "x": 0,
+      "y": 0
+    },
+    "is_published": false,
+    "knowledge_base_ids": []
+  },
+  "llmURL": null
+}

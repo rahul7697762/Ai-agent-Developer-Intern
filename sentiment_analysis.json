@@ -1,0 +1,3152 @@
+{
+  "name": "My workflow 5",
+  "nodes": [
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "You are an expert sales conversation analyst. Your task is to analyze a raw conversation transcript and provide a detailed, structured analysis. The transcript will contain dialogue from both an 'agent' and a 'customer'.\n\nYour analysis must be returned as a single JSON object. The JSON object should contain the following keys:\n\n1. \"customer_sentiment\": Overall sentiment of the customer on a scale from -1.0 (very negative) to +1.0 (very positive).\n\n2. \"agent_confidence\": A rating on a scale of 1 to 10 for the agent's confidence, based on tone and word choice.\n\n3. \"positive_indicators\": An array of strings listing specific phrases or words from the customer that indicate a positive response (e.g., \"I'm interested,\" \"yes,\" \"sounds good\").\n\n4. \"negative_indicators\": An array of strings for negative phrases (e.g., \"not interested,\" \"too expensive,\" \"call me later\").\n\n5. \"predicted_outcome\": A classification of the call's likely outcome, choosing from \"qualified_lead,\" \"unqualified_lead,\" or \"needs_follow_up.\"",
+              "role": "model"
+            },
+            {
+              "content": "={{ $json.body.call.transcript }}"
+            },
+            {}
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        -512,
+        -128
+      ],
+      "id": "86c0d539-003b-474c-85e9-4ea333be7119",
+      "name": "Message a model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "5tqk3OpMFHB9YF4N",
+          "name": "Google Gemini(PaLM) Api account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "17p_gFOSGYxXt1i9qM3W1BIG5VZdBxjxUrx5Fi_MiLnY",
+          "mode": "list",
+          "cachedResultName": "Copy of Sales AI Analytics",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/17p_gFOSGYxXt1i9qM3W1BIG5VZdBxjxUrx5Fi_MiLnY/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/105NOL4usP9pbnoIqlgLcvuWfy1oMefslIaQbgYdcv6E/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Alert Status": "={{ $json.alert_status }}",
+            "agent_confidence": "={{ $('Switch1').item.json.agent_confidence }}",
+            "positive_indicators": "={{ $('Switch1').item.json.positive_indicators }}",
+            "negative_indicators": "={{ $('Switch1').item.json.negative_indicators }}",
+            "predicted_outcome": "={{ $('Switch1').item.json.predicted_outcome }}",
+            "sentiment_score": "={{ $('Switch1').item.json.customer_sentiment }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "sentiment_score",
+              "displayName": "sentiment_score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "agent_confidence",
+              "displayName": "agent_confidence",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "positive_indicators",
+              "displayName": "positive_indicators",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "negative_indicators",
+              "displayName": "negative_indicators",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "predicted_outcome",
+              "displayName": "predicted_outcome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Alert Status",
+              "displayName": "Alert Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "finishReason",
+              "displayName": "finishReason",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "avgLogprobs",
+              "displayName": "avgLogprobs",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "conversation_duration",
+              "displayName": "conversation_duration",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "total_customer_words",
+              "displayName": "total_customer_words",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "agent_talk_time_percentage",
+              "displayName": "agent_talk_time_percentage",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "buying_signals",
+              "displayName": "buying_signals",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        800,
+        -112
+      ],
+      "id": "9990be88-d65c-4de9-8ed8-99c8082d4e90",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "gH0qSps1xiWwx3Bs",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.customer_sentiment }}",
+                    "rightValue": 0.5,
+                    "operator": {
+                      "type": "number",
+                      "operation": "gt"
+                    },
+                    "id": "02ee4eb7-560e-4008-8802-36d54e757b36"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "21d66262-139a-4de6-a78b-694ec80056f0",
+                    "leftValue": -0.5,
+                    "rightValue": 0.5,
+                    "operator": {
+                      "type": "number",
+                      "operation": "lte"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "db6d5714-fe13-46c6-9a53-26f4d0364101",
+                    "leftValue": "={{ $json.customer_sentiment }}",
+                    "rightValue": -0.5,
+                    "operator": {
+                      "type": "number",
+                      "operation": "lt"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        192,
+        -176
+      ],
+      "id": "363ca62e-89d2-4c69-b774-892ca0d3ae67",
+      "name": "Switch1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "293b5263-fa24-48c7-89cc-fe41983649f2",
+              "name": "alert_status",
+              "value": "Green",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        560,
+        -272
+      ],
+      "id": "97b925b6-6b56-4b47-b00a-22711a743a6f",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "70f2846a-ce10-466d-8159-1128b9381575",
+              "name": "alert_status",
+              "value": "Yellow",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        560,
+        -96
+      ],
+      "id": "1c54125a-976e-4327-8631-757b4a21e0b8",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a75c7755-eb88-441b-9c1b-9cef5a74ea26",
+              "name": "alert_status",
+              "value": "Red",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        576,
+        80
+      ],
+      "id": "fe30a694-c948-4031-92ee-c3d25b8eaff0",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "setiment_analysis",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -752,
+        -160
+      ],
+      "id": "fb18b498-c676-4926-b84e-58392b47e31d",
+      "name": "Webhook1",
+      "webhookId": "09a98fbe-c86a-46cd-a11d-b26464eb6fd0"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get raw text from previous node (already a string with markdown fences)\nconst text = $input.first().json.content.parts[0].text;\n\n// Try to extract the JSON block between ```json ... ```\nconst match = text.match(/```json\\s*([\\s\\S]*?)\\s*```/i);\n\n// Fallback: if no fenced block found, try to treat the whole text as JSON\nconst innerJson = match ? match[1].trim() : text.trim();\n\nlet parsed;\ntry {\n  parsed = JSON.parse(innerJson);\n} catch (e) {\n  throw new Error(\"Extracted content is not valid JSON: \" + e.message + \"\\nInner text:\\n\" + innerJson);\n}\n\n// Return a valid JSON object\nreturn [{ json: parsed }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -160,
+        -128
+      ],
+      "id": "e2a4f53b-c608-4209-aa46-53bc1b9b483f",
+      "name": "Code in JavaScript"
+    }
+  ],
+  "pinData": {
+    "Webhook1": [
+      {
+        "json": {
+          "headers": {
+            "host": "rahul777655.app.n8n.cloud",
+            "user-agent": "axios/1.11.0",
+            "content-length": "36906",
+            "accept": "application/json, text/plain, */*",
+            "accept-encoding": "gzip, br",
+            "cdn-loop": "cloudflare; loops=1; subreqs=1",
+            "cf-connecting-ip": "100.20.5.228",
+            "cf-ew-via": "15",
+            "cf-ipcountry": "US",
+            "cf-ray": "98f4be0936beef94-PDX",
+            "cf-visitor": "{\"scheme\":\"https\"}",
+            "cf-worker": "n8n.cloud",
+            "content-type": "application/json",
+            "x-forwarded-for": "100.20.5.228, 172.68.175.45",
+            "x-forwarded-host": "rahul777655.app.n8n.cloud",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "traefik-prod-users-gwc-26-7b6dc7c86c-dbhqg",
+            "x-is-trusted": "yes",
+            "x-real-ip": "100.20.5.228",
+            "x-retell-signature": "v=1760588202423,d=d83053f9256b91d2a5c3a3021b16211ffc2df279f2e8bc32fa22a1caac72ed88"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "event": "call_analyzed",
+            "call": {
+              "call_id": "call_fbf65124687b5d463c26a4cdeb7",
+              "call_type": "web_call",
+              "agent_id": "agent_2da0e42e38e963417e9a1c56da",
+              "agent_version": 15,
+              "agent_name": "Conversation Flow Agent",
+              "collected_dynamic_variables": {
+                "previous_node": "begin",
+                "current_node": "Welcome Node"
+              },
+              "call_status": "ended",
+              "start_timestamp": 1760588083251,
+              "end_timestamp": 1760588198812,
+              "duration_ms": 115561,
+              "transcript": "Agent: Namaste! 👋  \nMain aapki madad ke liye yahan hoon, taaki hum aapke liye best property dhoondh sakein.Um, kya main aapse kuch chhote-chhote sawal pooch sakta hoon, taaki main aapki zaroorat ko thoda aur samajh paun?\nUser: Yes,\nAgent: Great, thank you! Uh, sabse pehle aapka naam kya hai?\nUser: राहुल.\nAgent: Thank you, Rahul ji! Uh, aapka phone number share kar sakte hain please?\nUser: Six three nine eight seven nine two nine five one.\nAgent: Thanks, Rahul ji! Uh, aapko kis location ya area mein property chahiye?\nUser: Mumbai.\nAgent: Perfect, Rahul ji! Uh, aapko kis type ki property chahiye—jaise flat, villa, \nUser: Net, \nAgent: plot, ya commercial space?\nUser: net,\nAgent: Uh, Rahul ji, thoda clear bata sakte hain aapko kaunsi property type chahiye? Jaise flat, villa, plot, ya kuch aur?\nUser: flat,\nAgent: Thank you! Uh, ab aapka approx budget kya hai flat ke liye, Rahul ji?\nUser: One CR.\nAgent: Thanks, Rahul ji! Uh, aapko property dekhne ke liye kab visit karna convenient hoga? Koi preferred date hai?\nUser: Tomorrow at five PM.\nAgent: Just to confirm, aap Rahul hain, jo Mumbai mein ek flat dhoondh rahe hain, budget around ₹1 crore hai, aur aap kal 5 baje property tour karna chahte hain, sahi hai?\nUser: Yes,\nAgent: Perfect! Humara property advisor aapko jaldi contact karega visit finalize karne ke liye. Thank you so much for your time, Rahul ji 😊\n",
+              "transcript_object": [
+                {
+                  "role": "agent",
+                  "content": "Namaste! 👋  \nMain aapki madad ke liye yahan hoon, taaki hum aapke liye best property dhoondh sakein.Um, kya main aapse kuch chhote-chhote sawal pooch sakta hoon, taaki main aapki zaroorat ko thoda aur samajh paun?",
+                  "words": [
+                    {
+                      "word": "Namaste!",
+                      "start": 1.287,
+                      "end": 1.7631904296875
+                    },
+                    {
+                      "word": " 👋 ",
+                      "start": 2.107,
+                      "end": 2.5831904296875
+                    },
+                    {
+                      "word": " \nMain ",
+                      "start": 2.5831904296875,
+                      "end": 3.059380859375
+                    },
+                    {
+                      "word": "aapki ",
+                      "start": 3.059380859375,
+                      "end": 3.535571533203125
+                    },
+                    {
+                      "word": "madad ",
+                      "start": 3.535571533203125,
+                      "end": 4.011761962890625
+                    },
+                    {
+                      "word": "ke ",
+                      "start": 4.011761962890625,
+                      "end": 4.487952392578125
+                    },
+                    {
+                      "word": "liye ",
+                      "start": 4.487952392578125,
+                      "end": 4.964142822265625
+                    },
+                    {
+                      "word": "yahan ",
+                      "start": 4.964142822265625,
+                      "end": 5.440333251953125
+                    },
+                    {
+                      "word": "hoon, ",
+                      "start": 5.440333251953125,
+                      "end": 5.91652392578125
+                    },
+                    {
+                      "word": "taaki ",
+                      "start": 5.91652392578125,
+                      "end": 6.39271435546875
+                    },
+                    {
+                      "word": "hum ",
+                      "start": 6.0508095703125,
+                      "end": 6.527
+                    },
+                    {
+                      "word": "aapke ",
+                      "start": 6.0508095703125,
+                      "end": 6.527
+                    },
+                    {
+                      "word": "liye ",
+                      "start": 6.0508095703125,
+                      "end": 6.527
+                    },
+                    {
+                      "word": "best ",
+                      "start": 6.0508095703125,
+                      "end": 6.527
+                    },
+                    {
+                      "word": "property ",
+                      "start": 6.0508095703125,
+                      "end": 6.527
+                    },
+                    {
+                      "word": "dhoondh ",
+                      "start": 6.0508095703125,
+                      "end": 6.527
+                    },
+                    {
+                      "word": "sakein.",
+                      "start": 6.0508095703125,
+                      "end": 6.527
+                    },
+                    {
+                      "word": "Um, ",
+                      "start": 6.527,
+                      "end": 7.0031904296875
+                    },
+                    {
+                      "word": "kya ",
+                      "start": 7.0031904296875,
+                      "end": 7.479380859375
+                    },
+                    {
+                      "word": "main ",
+                      "start": 7.479380859375,
+                      "end": 7.955571533203125
+                    },
+                    {
+                      "word": "aapse ",
+                      "start": 7.955571533203125,
+                      "end": 8.431761962890626
+                    },
+                    {
+                      "word": "kuch ",
+                      "start": 8.431761962890626,
+                      "end": 8.907952392578125
+                    },
+                    {
+                      "word": "chhote-chhote ",
+                      "start": 8.907952392578125,
+                      "end": 9.384142822265625
+                    },
+                    {
+                      "word": "sawal ",
+                      "start": 9.384142822265625,
+                      "end": 9.860333251953126
+                    },
+                    {
+                      "word": "pooch ",
+                      "start": 9.860333251953126,
+                      "end": 10.33652392578125
+                    },
+                    {
+                      "word": "sakta ",
+                      "start": 10.33652392578125,
+                      "end": 10.81271435546875
+                    },
+                    {
+                      "word": "hoon, ",
+                      "start": 10.81271435546875,
+                      "end": 11.28890478515625
+                    },
+                    {
+                      "word": "taaki ",
+                      "start": 11.28890478515625,
+                      "end": 11.76509521484375
+                    },
+                    {
+                      "word": "main ",
+                      "start": 11.76509521484375,
+                      "end": 12.24128564453125
+                    },
+                    {
+                      "word": "aapki ",
+                      "start": 12.24128564453125,
+                      "end": 12.71747607421875
+                    },
+                    {
+                      "word": "zaroorat ",
+                      "start": 12.459892822265624,
+                      "end": 12.936083251953125
+                    },
+                    {
+                      "word": "ko ",
+                      "start": 12.459892822265624,
+                      "end": 12.936083251953125
+                    },
+                    {
+                      "word": "thoda ",
+                      "start": 12.459892822265624,
+                      "end": 12.936083251953125
+                    },
+                    {
+                      "word": "aur ",
+                      "start": 12.459892822265624,
+                      "end": 12.936083251953125
+                    },
+                    {
+                      "word": "samajh ",
+                      "start": 12.459892822265624,
+                      "end": 12.936083251953125
+                    },
+                    {
+                      "word": "paun?",
+                      "start": 12.459892822265624,
+                      "end": 12.936083251953125
+                    }
+                  ],
+                  "metadata": {
+                    "response_id": 0
+                  }
+                },
+                {
+                  "role": "user",
+                  "content": "Yes,",
+                  "words": [
+                    {
+                      "word": "Yes,",
+                      "start": 13.998999999999999,
+                      "end": 14.498999999999999
+                    }
+                  ]
+                },
+                {
+                  "role": "agent",
+                  "content": "Great, thank you! Uh, sabse pehle aapka naam kya hai?",
+                  "words": [
+                    {
+                      "word": "Great, ",
+                      "start": 16.445,
+                      "end": 16.9211904296875
+                    },
+                    {
+                      "word": "thank ",
+                      "start": 16.9211904296875,
+                      "end": 17.397380859375
+                    },
+                    {
+                      "word": "you!",
+                      "start": 17.2221845703125,
+                      "end": 17.698375
+                    },
+                    {
+                      "word": " Uh, ",
+                      "start": 17.698375,
+                      "end": 18.1745654296875
+                    },
+                    {
+                      "word": "sabse ",
+                      "start": 18.1745654296875,
+                      "end": 18.650755859375
+                    },
+                    {
+                      "word": "pehle ",
+                      "start": 18.650755859375,
+                      "end": 19.126946533203125
+                    },
+                    {
+                      "word": "aapka ",
+                      "start": 19.0868095703125,
+                      "end": 19.563
+                    },
+                    {
+                      "word": "naam ",
+                      "start": 19.0868095703125,
+                      "end": 19.563
+                    },
+                    {
+                      "word": "kya ",
+                      "start": 19.0868095703125,
+                      "end": 19.563
+                    },
+                    {
+                      "word": "hai?",
+                      "start": 19.0868095703125,
+                      "end": 19.563
+                    }
+                  ],
+                  "metadata": {
+                    "response_id": 1
+                  }
+                },
+                {
+                  "role": "user",
+                  "content": "राहुल.",
+                  "words": [
+                    {
+                      "word": "राहुल.",
+                      "start": 20.069,
+                      "end": 20.569
+                    }
+                  ]
+                },
+                {
+                  "role": "agent",
+                  "content": "Thank you, Rahul ji! Uh, aapka phone number share kar sakte hain please?",
+                  "words": [
+                    {
+                      "word": "Thank ",
+                      "start": 22.107,
+                      "end": 22.5831904296875
+                    },
+                    {
+                      "word": "you, ",
+                      "start": 22.5831904296875,
+                      "end": 23.059380859375
+                    },
+                    {
+                      "word": "Rahul ",
+                      "start": 22.9419345703125,
+                      "end": 23.418125
+                    },
+                    {
+                      "word": "ji!",
+                      "start": 22.9419345703125,
+                      "end": 23.418125
+                    },
+                    {
+                      "word": " Uh, ",
+                      "start": 23.418125,
+                      "end": 23.8943154296875
+                    },
+                    {
+                      "word": "aapka ",
+                      "start": 23.8943154296875,
+                      "end": 24.370505859375
+                    },
+                    {
+                      "word": "phone ",
+                      "start": 24.370505859375,
+                      "end": 24.846696533203126
+                    },
+                    {
+                      "word": "number ",
+                      "start": 24.846696533203126,
+                      "end": 25.322886962890625
+                    },
+                    {
+                      "word": "share ",
+                      "start": 25.322886962890625,
+                      "end": 25.799077392578123
+                    },
+                    {
+                      "word": "kar ",
+                      "start": 25.7054345703125,
+                      "end": 26.181625
+                    },
+                    {
+                      "word": "sakte ",
+                      "start": 25.7054345703125,
+                      "end": 26.181625
+                    },
+                    {
+                      "word": "hain ",
+                      "start": 25.7054345703125,
+                      "end": 26.181625
+                    },
+                    {
+                      "word": "please?",
+                      "start": 25.7054345703125,
+                      "end": 26.181625
+                    }
+                  ],
+                  "metadata": {
+                    "response_id": 2
+                  }
+                },
+                {
+                  "role": "user",
+                  "content": "Six three nine eight seven nine two nine five one.",
+                  "words": [
+                    {
+                      "word": "Six ",
+                      "start": 27.738999,
+                      "end": 27.898998
+                    },
+                    {
+                      "word": "three ",
+                      "start": 27.898998,
+                      "end": 28.378999999999998
+                    },
+                    {
+                      "word": "nine ",
+                      "start": 28.378999999999998,
+                      "end": 28.619
+                    },
+                    {
+                      "word": "eight ",
+                      "start": 28.619,
+                      "end": 29.019
+                    },
+                    {
+                      "word": "seven ",
+                      "start": 29.019,
+                      "end": 29.498998999999998
+                    },
+                    {
+                      "word": "nine ",
+                      "start": 29.498998999999998,
+                      "end": 29.898998
+                    },
+                    {
+                      "word": "two ",
+                      "start": 29.898998,
+                      "end": 30.398998
+                    },
+                    {
+                      "word": "nine ",
+                      "start": 30.459,
+                      "end": 30.959
+                    },
+                    {
+                      "word": "five ",
+                      "start": 31.059,
+                      "end": 31.503999999999998
+                    },
+                    {
+                      "word": "one.",
+                      "start": 31.503999999999998,
+                      "end": 31.948999999999998
+                    }
+                  ]
+                },
+                {
+                  "role": "agent",
+                  "content": "Thanks, Rahul ji! Uh, aapko kis location ya area mein property chahiye?",
+                  "words": [
+                    {
+                      "word": "Thanks, ",
+                      "start": 34.272375,
+                      "end": 34.7485654296875
+                    },
+                    {
+                      "word": "Rahul ",
+                      "start": 34.7485654296875,
+                      "end": 35.224755859375
+                    },
+                    {
+                      "word": "ji!",
+                      "start": 34.77576782226563,
+                      "end": 35.25195825195313
+                    },
+                    {
+                      "word": " Uh, ",
+                      "start": 35.25195825195313,
+                      "end": 35.72814892578125
+                    },
+                    {
+                      "word": "aapko ",
+                      "start": 35.72814892578125,
+                      "end": 36.20433935546875
+                    },
+                    {
+                      "word": "kis ",
+                      "start": 36.20433935546875,
+                      "end": 36.68052978515625
+                    },
+                    {
+                      "word": "location ",
+                      "start": 36.68052978515625,
+                      "end": 37.15672021484375
+                    },
+                    {
+                      "word": "ya ",
+                      "start": 37.15672021484375,
+                      "end": 37.63291064453125
+                    },
+                    {
+                      "word": "area ",
+                      "start": 37.63291064453125,
+                      "end": 38.10910107421875
+                    },
+                    {
+                      "word": "mein ",
+                      "start": 38.10910107421875,
+                      "end": 38.58529174804688
+                    },
+                    {
+                      "word": "property ",
+                      "start": 38.58529174804688,
+                      "end": 39.061482177734376
+                    },
+                    {
+                      "word": "chahiye?",
+                      "start": 39.02985107421875,
+                      "end": 39.506041748046876
+                    }
+                  ],
+                  "metadata": {
+                    "response_id": 3
+                  }
+                },
+                {
+                  "role": "user",
+                  "content": "Mumbai.",
+                  "words": [
+                    {
+                      "word": "Mumbai.",
+                      "start": 42.309,
+                      "end": 42.809
+                    }
+                  ]
+                },
+                {
+                  "role": "agent",
+                  "content": "Perfect, Rahul ji! Uh, aapko kis type ki property chahiye—jaise flat, villa, ",
+                  "words": [
+                    {
+                      "word": "Perfect, ",
+                      "start": 44.692,
+                      "end": 45.1681904296875
+                    },
+                    {
+                      "word": "Rahul ",
+                      "start": 45.1681904296875,
+                      "end": 45.644380859375
+                    },
+                    {
+                      "word": "ji!",
+                      "start": 45.644380859375,
+                      "end": 46.120571533203126
+                    },
+                    {
+                      "word": " Uh, ",
+                      "start": 46.347875,
+                      "end": 46.8240654296875
+                    },
+                    {
+                      "word": "aapko ",
+                      "start": 46.8240654296875,
+                      "end": 47.300255859375
+                    },
+                    {
+                      "word": "kis ",
+                      "start": 47.300255859375,
+                      "end": 47.77644653320313
+                    },
+                    {
+                      "word": "type ",
+                      "start": 47.77644653320313,
+                      "end": 48.25263696289063
+                    },
+                    {
+                      "word": "ki ",
+                      "start": 48.25263696289063,
+                      "end": 48.728827392578125
+                    },
+                    {
+                      "word": "property ",
+                      "start": 48.728827392578125,
+                      "end": 49.205017822265624
+                    },
+                    {
+                      "word": "chahiye—jaise ",
+                      "start": 49.205017822265624,
+                      "end": 49.68120825195312
+                    },
+                    {
+                      "word": "flat, ",
+                      "start": 49.68120825195312,
+                      "end": 50.15739892578125
+                    },
+                    {
+                      "word": "villa, ",
+                      "start": 50.15739892578125,
+                      "end": 50.63358935546875
+                    }
+                  ],
+                  "metadata": {
+                    "response_id": 4
+                  }
+                },
+                {
+                  "role": "user",
+                  "content": "Net, ",
+                  "words": [
+                    {
+                      "word": "Net, ",
+                      "start": 50.919,
+                      "end": 51.419
+                    }
+                  ]
+                },
+                {
+                  "role": "agent",
+                  "content": "plot, ya commercial space?",
+                  "words": [
+                    {
+                      "word": "plot, ",
+                      "start": 50.63358935546875,
+                      "end": 51.10977978515625
+                    },
+                    {
+                      "word": "ya ",
+                      "start": 51.10977978515625,
+                      "end": 51.58597021484375
+                    },
+                    {
+                      "word": "commercial ",
+                      "start": 51.58597021484375,
+                      "end": 52.06216064453125
+                    },
+                    {
+                      "word": "space?",
+                      "start": 52.06216064453125,
+                      "end": 52.53835107421875
+                    }
+                  ],
+                  "metadata": {
+                    "response_id": 4
+                  }
+                },
+                {
+                  "role": "user",
+                  "content": "net,",
+                  "words": [
+                    {
+                      "word": "net,",
+                      "start": 55.319,
+                      "end": 55.819
+                    }
+                  ]
+                },
+                {
+                  "role": "agent",
+                  "content": "Uh, Rahul ji, thoda clear bata sakte hain aapko kaunsi property type chahiye? Jaise flat, villa, plot, ya kuch aur?",
+                  "words": [
+                    {
+                      "word": "Uh, ",
+                      "start": 59.343,
+                      "end": 59.8191904296875
+                    },
+                    {
+                      "word": "Rahul ",
+                      "start": 59.8191904296875,
+                      "end": 60.295380859375
+                    },
+                    {
+                      "word": "ji, ",
+                      "start": 60.295380859375,
+                      "end": 60.77157153320312
+                    },
+                    {
+                      "word": "thoda ",
+                      "start": 60.77157153320312,
+                      "end": 61.24776196289063
+                    },
+                    {
+                      "word": "clear ",
+                      "start": 61.24776196289063,
+                      "end": 61.72395239257813
+                    },
+                    {
+                      "word": "bata ",
+                      "start": 61.72395239257813,
+                      "end": 62.200142822265626
+                    },
+                    {
+                      "word": "sakte ",
+                      "start": 62.200142822265626,
+                      "end": 62.676333251953125
+                    },
+                    {
+                      "word": "hain ",
+                      "start": 62.5550595703125,
+                      "end": 63.03125
+                    },
+                    {
+                      "word": "aapko ",
+                      "start": 62.5550595703125,
+                      "end": 63.03125
+                    },
+                    {
+                      "word": "kaunsi ",
+                      "start": 62.5550595703125,
+                      "end": 63.03125
+                    },
+                    {
+                      "word": "property ",
+                      "start": 62.5550595703125,
+                      "end": 63.03125
+                    },
+                    {
+                      "word": "type ",
+                      "start": 62.5550595703125,
+                      "end": 63.03125
+                    },
+                    {
+                      "word": "chahiye?",
+                      "start": 62.5550595703125,
+                      "end": 63.03125
+                    },
+                    {
+                      "word": " Jaise ",
+                      "start": 63.03125,
+                      "end": 63.5074404296875
+                    },
+                    {
+                      "word": "flat, ",
+                      "start": 63.5074404296875,
+                      "end": 63.983630859375
+                    },
+                    {
+                      "word": "villa, ",
+                      "start": 63.983630859375,
+                      "end": 64.45982153320313
+                    },
+                    {
+                      "word": "plot, ",
+                      "start": 64.45982153320313,
+                      "end": 64.93601196289063
+                    },
+                    {
+                      "word": "ya ",
+                      "start": 64.93601196289063,
+                      "end": 65.41220239257812
+                    },
+                    {
+                      "word": "kuch ",
+                      "start": 65.41220239257812,
+                      "end": 65.88839282226563
+                    },
+                    {
+                      "word": "aur?",
+                      "start": 65.5836845703125,
+                      "end": 66.059875
+                    }
+                  ],
+                  "metadata": {
+                    "response_id": 5
+                  }
+                },
+                {
+                  "role": "user",
+                  "content": "flat,",
+                  "words": [
+                    {
+                      "word": "flat,",
+                      "start": 66.05900000000001,
+                      "end": 66.55900000000001
+                    }
+                  ]
+                },
+                {
+                  "role": "agent",
+                  "content": "Thank you! Uh, ab aapka approx budget kya hai flat ke liye, Rahul ji?",
+                  "words": [
+                    {
+                      "word": "Thank ",
+                      "start": 69.749,
+                      "end": 70.2251904296875
+                    },
+                    {
+                      "word": "you!",
+                      "start": 70.0443095703125,
+                      "end": 70.5205
+                    },
+                    {
+                      "word": " Uh, ",
+                      "start": 70.5205,
+                      "end": 70.9966904296875
+                    },
+                    {
+                      "word": "ab ",
+                      "start": 70.9966904296875,
+                      "end": 71.472880859375
+                    },
+                    {
+                      "word": "aapka ",
+                      "start": 71.472880859375,
+                      "end": 71.94907153320312
+                    },
+                    {
+                      "word": "approx ",
+                      "start": 71.94907153320312,
+                      "end": 72.42526196289063
+                    },
+                    {
+                      "word": "budget ",
+                      "start": 72.42526196289063,
+                      "end": 72.90145239257812
+                    },
+                    {
+                      "word": "kya ",
+                      "start": 72.90145239257812,
+                      "end": 73.37764282226563
+                    },
+                    {
+                      "word": "hai ",
+                      "start": 73.37764282226563,
+                      "end": 73.85383325195312
+                    },
+                    {
+                      "word": "flat ",
+                      "start": 73.85383325195312,
+                      "end": 74.33002392578125
+                    },
+                    {
+                      "word": "ke ",
+                      "start": 74.01201782226562,
+                      "end": 74.48820825195313
+                    },
+                    {
+                      "word": "liye, ",
+                      "start": 74.01201782226562,
+                      "end": 74.48820825195313
+                    },
+                    {
+                      "word": "Rahul ",
+                      "start": 74.01201782226562,
+                      "end": 74.48820825195313
+                    },
+                    {
+                      "word": "ji?",
+                      "start": 74.01201782226562,
+                      "end": 74.48820825195313
+                    }
+                  ],
+                  "metadata": {
+                    "response_id": 6
+                  }
+                },
+                {
+                  "role": "user",
+                  "content": "One CR.",
+                  "words": [
+                    {
+                      "word": "One ",
+                      "start": 76.45899600000001,
+                      "end": 76.619
+                    },
+                    {
+                      "word": "CR.",
+                      "start": 76.619,
+                      "end": 77.119
+                    }
+                  ]
+                },
+                {
+                  "role": "agent",
+                  "content": "Thanks, Rahul ji! Uh, aapko property dekhne ke liye kab visit karna convenient hoga? Koi preferred date hai?",
+                  "words": [
+                    {
+                      "word": "Thanks, ",
+                      "start": 78.677,
+                      "end": 79.1531904296875
+                    },
+                    {
+                      "word": "Rahul ",
+                      "start": 79.1531904296875,
+                      "end": 79.629380859375
+                    },
+                    {
+                      "word": "ji!",
+                      "start": 79.629380859375,
+                      "end": 80.10557153320312
+                    },
+                    {
+                      "word": " Uh, ",
+                      "start": 80.21770825195313,
+                      "end": 80.69389892578126
+                    },
+                    {
+                      "word": "aapko ",
+                      "start": 80.69389892578126,
+                      "end": 81.17008935546875
+                    },
+                    {
+                      "word": "property ",
+                      "start": 81.17008935546875,
+                      "end": 81.64627978515625
+                    },
+                    {
+                      "word": "dekhne ",
+                      "start": 81.64627978515625,
+                      "end": 82.12247021484374
+                    },
+                    {
+                      "word": "ke ",
+                      "start": 82.12247021484374,
+                      "end": 82.59866064453125
+                    },
+                    {
+                      "word": "liye ",
+                      "start": 82.59866064453125,
+                      "end": 83.07485107421876
+                    },
+                    {
+                      "word": "kab ",
+                      "start": 83.07485107421876,
+                      "end": 83.55104174804687
+                    },
+                    {
+                      "word": "visit ",
+                      "start": 83.55104174804687,
+                      "end": 84.02723217773438
+                    },
+                    {
+                      "word": "karna ",
+                      "start": 84.02723217773438,
+                      "end": 84.50342260742187
+                    },
+                    {
+                      "word": "convenient ",
+                      "start": 84.04564282226562,
+                      "end": 84.52183325195313
+                    },
+                    {
+                      "word": "hoga?",
+                      "start": 84.04564282226562,
+                      "end": 84.52183325195313
+                    },
+                    {
+                      "word": " Koi ",
+                      "start": 84.52183325195313,
+                      "end": 84.99802392578125
+                    },
+                    {
+                      "word": "preferred ",
+                      "start": 84.99802392578125,
+                      "end": 85.47421435546875
+                    },
+                    {
+                      "word": "date ",
+                      "start": 85.47421435546875,
+                      "end": 85.95040478515625
+                    },
+                    {
+                      "word": "hai?",
+                      "start": 85.52976782226563,
+                      "end": 86.00595825195313
+                    }
+                  ],
+                  "metadata": {
+                    "response_id": 7
+                  }
+                },
+                {
+                  "role": "user",
+                  "content": "Tomorrow at five PM.",
+                  "words": [
+                    {
+                      "word": "Tomorrow ",
+                      "start": 87.409,
+                      "end": 87.909
+                    },
+                    {
+                      "word": "at ",
+                      "start": 87.96900600000001,
+                      "end": 88.209
+                    },
+                    {
+                      "word": "five ",
+                      "start": 88.209,
+                      "end": 88.44900000000001
+                    },
+                    {
+                      "word": "PM.",
+                      "start": 88.44900000000001,
+                      "end": 88.94900000000001
+                    }
+                  ]
+                },
+                {
+                  "role": "agent",
+                  "content": "Just to confirm, aap Rahul hain, jo Mumbai mein ek flat dhoondh rahe hain, budget around ₹1 crore hai, aur aap kal 5 baje property tour karna chahte hain, sahi hai?",
+                  "words": [
+                    {
+                      "word": "Just ",
+                      "start": 90.739,
+                      "end": 91.2151904296875
+                    },
+                    {
+                      "word": "to ",
+                      "start": 91.2151904296875,
+                      "end": 91.691380859375
+                    },
+                    {
+                      "word": "confirm, ",
+                      "start": 91.691380859375,
+                      "end": 92.16757153320313
+                    },
+                    {
+                      "word": "aap ",
+                      "start": 92.16757153320313,
+                      "end": 92.64376196289062
+                    },
+                    {
+                      "word": "Rahul ",
+                      "start": 92.64376196289062,
+                      "end": 93.11995239257813
+                    },
+                    {
+                      "word": "hain, ",
+                      "start": 93.11995239257813,
+                      "end": 93.59614282226562
+                    },
+                    {
+                      "word": "jo ",
+                      "start": 93.59614282226562,
+                      "end": 94.07233325195313
+                    },
+                    {
+                      "word": "Mumbai ",
+                      "start": 94.07233325195313,
+                      "end": 94.54852392578125
+                    },
+                    {
+                      "word": "mein ",
+                      "start": 94.54852392578125,
+                      "end": 95.02471435546875
+                    },
+                    {
+                      "word": "ek ",
+                      "start": 95.02471435546875,
+                      "end": 95.50090478515625
+                    },
+                    {
+                      "word": "flat ",
+                      "start": 95.50090478515625,
+                      "end": 95.97709521484374
+                    },
+                    {
+                      "word": "dhoondh ",
+                      "start": 95.97709521484374,
+                      "end": 96.45328564453125
+                    },
+                    {
+                      "word": "rahe ",
+                      "start": 96.45328564453125,
+                      "end": 96.92947607421875
+                    },
+                    {
+                      "word": "hain, ",
+                      "start": 96.92947607421875,
+                      "end": 97.40566674804687
+                    },
+                    {
+                      "word": "budget ",
+                      "start": 97.40566674804687,
+                      "end": 97.88185717773437
+                    },
+                    {
+                      "word": "around ",
+                      "start": 97.88185717773437,
+                      "end": 98.35804760742188
+                    },
+                    {
+                      "word": "₹1 ",
+                      "start": 98.35804760742188,
+                      "end": 98.83423803710937
+                    },
+                    {
+                      "word": "crore ",
+                      "start": 98.83423803710937,
+                      "end": 99.31042846679688
+                    },
+                    {
+                      "word": "hai, ",
+                      "start": 99.31042846679688,
+                      "end": 99.786619140625
+                    },
+                    {
+                      "word": "aur ",
+                      "start": 99.786619140625,
+                      "end": 100.2628095703125
+                    },
+                    {
+                      "word": "aap ",
+                      "start": 100.2628095703125,
+                      "end": 100.739
+                    },
+                    {
+                      "word": "kal ",
+                      "start": 100.739,
+                      "end": 101.2151904296875
+                    },
+                    {
+                      "word": "5 ",
+                      "start": 101.13976782226563,
+                      "end": 101.61595825195313
+                    },
+                    {
+                      "word": "baje ",
+                      "start": 101.13976782226563,
+                      "end": 101.61595825195313
+                    },
+                    {
+                      "word": "property ",
+                      "start": 101.13976782226563,
+                      "end": 101.61595825195313
+                    },
+                    {
+                      "word": "tour ",
+                      "start": 101.13976782226563,
+                      "end": 101.61595825195313
+                    },
+                    {
+                      "word": "karna ",
+                      "start": 101.13976782226563,
+                      "end": 101.61595825195313
+                    },
+                    {
+                      "word": "chahte ",
+                      "start": 101.13976782226563,
+                      "end": 101.61595825195313
+                    },
+                    {
+                      "word": "hain, ",
+                      "start": 101.13976782226563,
+                      "end": 101.61595825195313
+                    },
+                    {
+                      "word": "sahi ",
+                      "start": 101.13976782226563,
+                      "end": 101.61595825195313
+                    },
+                    {
+                      "word": "hai?",
+                      "start": 101.13976782226563,
+                      "end": 101.61595825195313
+                    }
+                  ],
+                  "metadata": {
+                    "response_id": 9
+                  }
+                },
+                {
+                  "role": "user",
+                  "content": "Yes,",
+                  "words": [
+                    {
+                      "word": "Yes,",
+                      "start": 103.47900000000001,
+                      "end": 103.97900000000001
+                    }
+                  ]
+                },
+                {
+                  "role": "agent",
+                  "content": "Perfect! Humara property advisor aapko jaldi contact karega visit finalize karne ke liye. Thank you so much for your time, Rahul ji 😊",
+                  "words": [
+                    {
+                      "word": "Perfect!",
+                      "start": 105.818,
+                      "end": 106.2941904296875
+                    },
+                    {
+                      "word": " Humara ",
+                      "start": 106.58370825195313,
+                      "end": 107.05989892578125
+                    },
+                    {
+                      "word": "property ",
+                      "start": 107.05989892578125,
+                      "end": 107.53608935546875
+                    },
+                    {
+                      "word": "advisor ",
+                      "start": 107.53608935546875,
+                      "end": 108.01227978515625
+                    },
+                    {
+                      "word": "aapko ",
+                      "start": 108.01227978515625,
+                      "end": 108.48847021484374
+                    },
+                    {
+                      "word": "jaldi ",
+                      "start": 108.48847021484374,
+                      "end": 108.96466064453125
+                    },
+                    {
+                      "word": "contact ",
+                      "start": 108.96466064453125,
+                      "end": 109.44085107421876
+                    },
+                    {
+                      "word": "karega ",
+                      "start": 109.44085107421876,
+                      "end": 109.91704174804687
+                    },
+                    {
+                      "word": "visit ",
+                      "start": 109.91704174804687,
+                      "end": 110.39323217773438
+                    },
+                    {
+                      "word": "finalize ",
+                      "start": 110.39323217773438,
+                      "end": 110.86942260742188
+                    },
+                    {
+                      "word": "karne ",
+                      "start": 110.86942260742188,
+                      "end": 111.34561303710937
+                    },
+                    {
+                      "word": "ke ",
+                      "start": 111.3059345703125,
+                      "end": 111.782125
+                    },
+                    {
+                      "word": "liye.",
+                      "start": 111.3059345703125,
+                      "end": 111.782125
+                    },
+                    {
+                      "word": " Thank ",
+                      "start": 111.782125,
+                      "end": 112.2583154296875
+                    },
+                    {
+                      "word": "you ",
+                      "start": 112.2583154296875,
+                      "end": 112.734505859375
+                    },
+                    {
+                      "word": "so ",
+                      "start": 112.734505859375,
+                      "end": 113.21069653320312
+                    },
+                    {
+                      "word": "much ",
+                      "start": 113.21069653320312,
+                      "end": 113.68688696289063
+                    },
+                    {
+                      "word": "for ",
+                      "start": 113.45464282226563,
+                      "end": 113.93083325195313
+                    },
+                    {
+                      "word": "your ",
+                      "start": 113.45464282226563,
+                      "end": 113.93083325195313
+                    },
+                    {
+                      "word": "time, ",
+                      "start": 113.45464282226563,
+                      "end": 113.93083325195313
+                    },
+                    {
+                      "word": "Rahul ",
+                      "start": 113.45464282226563,
+                      "end": 113.93083325195313
+                    },
+                    {
+                      "word": "ji ",
+                      "start": 113.45464282226563,
+                      "end": 113.93083325195313
+                    },
+                    {
+                      "word": "😊",
+                      "start": 113.45464282226563,
+                      "end": 113.93083325195313
+                    }
+                  ],
+                  "metadata": {
+                    "response_id": 10
+                  }
+                }
+              ],
+              "transcript_with_tool_calls": [
+                {
+                  "role": "node_transition",
+                  "former_node_id": "begin",
+                  "former_node_name": "begin",
+                  "new_node_id": "start-node-1760196236222",
+                  "new_node_name": "Welcome Node",
+                  "time_sec": 0.007
+                },
+                {
+                  "role": "agent",
+                  "content": "Namaste! 👋  \nMain aapki madad ke liye yahan hoon, taaki hum aapke liye best property dhoondh sakein.Um, kya main aapse kuch chhote-chhote sawal pooch sakta hoon, taaki main aapki zaroorat ko thoda aur samajh paun?",
+                  "words": [
+                    {
+                      "word": "Namaste!",
+                      "start": 1.287,
+                      "end": 1.7631904296875
+                    },
+                    {
+                      "word": " 👋 ",
+                      "start": 2.107,
+                      "end": 2.5831904296875
+                    },
+                    {
+                      "word": " \nMain ",
+                      "start": 2.5831904296875,
+                      "end": 3.059380859375
+                    },
+                    {
+                      "word": "aapki ",
+                      "start": 3.059380859375,
+                      "end": 3.535571533203125
+                    },
+                    {
+                      "word": "madad ",
+                      "start": 3.535571533203125,
+                      "end": 4.011761962890625
+                    },
+                    {
+                      "word": "ke ",
+                      "start": 4.011761962890625,
+                      "end": 4.487952392578125
+                    },
+                    {
+                      "word": "liye ",
+                      "start": 4.487952392578125,
+                      "end": 4.964142822265625
+                    },
+                    {
+                      "word": "yahan ",
+                      "start": 4.964142822265625,
+                      "end": 5.440333251953125
+                    },
+                    {
+                      "word": "hoon, ",
+                      "start": 5.440333251953125,
+                      "end": 5.91652392578125
+                    },
+                    {
+                      "word": "taaki ",
+                      "start": 5.91652392578125,
+                      "end": 6.39271435546875
+                    },
+                    {
+                      "word": "hum ",
+                      "start": 6.0508095703125,
+                      "end": 6.527
+                    },
+                    {
+                      "word": "aapke ",
+                      "start": 6.0508095703125,
+                      "end": 6.527
+                    },
+                    {
+                      "word": "liye ",
+                      "start": 6.0508095703125,
+                      "end": 6.527
+                    },
+                    {
+                      "word": "best ",
+                      "start": 6.0508095703125,
+                      "end": 6.527
+                    },
+                    {
+                      "word": "property ",
+                      "start": 6.0508095703125,
+                      "end": 6.527
+                    },
+                    {
+                      "word": "dhoondh ",
+                      "start": 6.0508095703125,
+                      "end": 6.527
+                    },
+                    {
+                      "word": "sakein.",
+                      "start": 6.0508095703125,
+                      "end": 6.527
+                    },
+                    {
+                      "word": "Um, ",
+                      "start": 6.527,
+                      "end": 7.0031904296875
+                    },
+                    {
+                      "word": "kya ",
+                      "start": 7.0031904296875,
+                      "end": 7.479380859375
+                    },
+                    {
+                      "word": "main ",
+                      "start": 7.479380859375,
+                      "end": 7.955571533203125
+                    },
+                    {
+                      "word": "aapse ",
+                      "start": 7.955571533203125,
+                      "end": 8.431761962890626
+                    },
+                    {
+                      "word": "kuch ",
+                      "start": 8.431761962890626,
+                      "end": 8.907952392578125
+                    },
+                    {
+                      "word": "chhote-chhote ",
+                      "start": 8.907952392578125,
+                      "end": 9.384142822265625
+                    },
+                    {
+                      "word": "sawal ",
+                      "start": 9.384142822265625,
+                      "end": 9.860333251953126
+                    },
+                    {
+                      "word": "pooch ",
+                      "start": 9.860333251953126,
+                      "end": 10.33652392578125
+                    },
+                    {
+                      "word": "sakta ",
+                      "start": 10.33652392578125,
+                      "end": 10.81271435546875
+                    },
+                    {
+                      "word": "hoon, ",
+                      "start": 10.81271435546875,
+                      "end": 11.28890478515625
+                    },
+                    {
+                      "word": "taaki ",
+                      "start": 11.28890478515625,
+                      "end": 11.76509521484375
+                    },
+                    {
+                      "word": "main ",
+                      "start": 11.76509521484375,
+                      "end": 12.24128564453125
+                    },
+                    {
+                      "word": "aapki ",
+                      "start": 12.24128564453125,
+                      "end": 12.71747607421875
+                    },
+                    {
+                      "word": "zaroorat ",
+                      "start": 12.459892822265624,
+                      "end": 12.936083251953125
+                    },
+                    {
+                      "word": "ko ",
+                      "start": 12.459892822265624,
+                      "end": 12.936083251953125
+                    },
+                    {
+                      "word": "thoda ",
+                      "start": 12.459892822265624,
+                      "end": 12.936083251953125
+                    },
+                    {
+                      "word": "aur ",
+                      "start": 12.459892822265624,
+                      "end": 12.936083251953125
+                    },
+                    {
+                      "word": "samajh ",
+                      "start": 12.459892822265624,
+                      "end": 12.936083251953125
+                    },
+                    {
+                      "word": "paun?",
+                      "start": 12.459892822265624,
+                      "end": 12.936083251953125
+                    }
+                  ],
+                  "metadata": {
+                    "response_id": 0
+                  }
+                },
+                {
+                  "role": "user",
+                  "content": "Yes,",
+                  "words": [
+                    {
+                      "word": "Yes,",
+                      "start": 13.998999999999999,
+                      "end": 14.498999999999999
+                    }
+                  ]
+                },
+                {
+                  "role": "agent",
+                  "content": "Great, thank you! Uh, sabse pehle aapka naam kya hai?",
+                  "words": [
+                    {
+                      "word": "Great, ",
+                      "start": 16.445,
+                      "end": 16.9211904296875
+                    },
+                    {
+                      "word": "thank ",
+                      "start": 16.9211904296875,
+                      "end": 17.397380859375
+                    },
+                    {
+                      "word": "you!",
+                      "start": 17.2221845703125,
+                      "end": 17.698375
+                    },
+                    {
+                      "word": " Uh, ",
+                      "start": 17.698375,
+                      "end": 18.1745654296875
+                    },
+                    {
+                      "word": "sabse ",
+                      "start": 18.1745654296875,
+                      "end": 18.650755859375
+                    },
+                    {
+                      "word": "pehle ",
+                      "start": 18.650755859375,
+                      "end": 19.126946533203125
+                    },
+                    {
+                      "word": "aapka ",
+                      "start": 19.0868095703125,
+                      "end": 19.563
+                    },
+                    {
+                      "word": "naam ",
+                      "start": 19.0868095703125,
+                      "end": 19.563
+                    },
+                    {
+                      "word": "kya ",
+                      "start": 19.0868095703125,
+                      "end": 19.563
+                    },
+                    {
+                      "word": "hai?",
+                      "start": 19.0868095703125,
+                      "end": 19.563
+                    }
+                  ],
+                  "metadata": {
+                    "response_id": 1
+                  }
+                },
+                {
+                  "role": "user",
+                  "content": "राहुल.",
+                  "words": [
+                    {
+                      "word": "राहुल.",
+                      "start": 20.069,
+                      "end": 20.569
+                    }
+                  ]
+                },
+                {
+                  "role": "agent",
+                  "content": "Thank you, Rahul ji! Uh, aapka phone number share kar sakte hain please?",
+                  "words": [
+                    {
+                      "word": "Thank ",
+                      "start": 22.107,
+                      "end": 22.5831904296875
+                    },
+                    {
+                      "word": "you, ",
+                      "start": 22.5831904296875,
+                      "end": 23.059380859375
+                    },
+                    {
+                      "word": "Rahul ",
+                      "start": 22.9419345703125,
+                      "end": 23.418125
+                    },
+                    {
+                      "word": "ji!",
+                      "start": 22.9419345703125,
+                      "end": 23.418125
+                    },
+                    {
+                      "word": " Uh, ",
+                      "start": 23.418125,
+                      "end": 23.8943154296875
+                    },
+                    {
+                      "word": "aapka ",
+                      "start": 23.8943154296875,
+                      "end": 24.370505859375
+                    },
+                    {
+                      "word": "phone ",
+                      "start": 24.370505859375,
+                      "end": 24.846696533203126
+                    },
+                    {
+                      "word": "number ",
+                      "start": 24.846696533203126,
+                      "end": 25.322886962890625
+                    },
+                    {
+                      "word": "share ",
+                      "start": 25.322886962890625,
+                      "end": 25.799077392578123
+                    },
+                    {
+                      "word": "kar ",
+                      "start": 25.7054345703125,
+                      "end": 26.181625
+                    },
+                    {
+                      "word": "sakte ",
+                      "start": 25.7054345703125,
+                      "end": 26.181625
+                    },
+                    {
+                      "word": "hain ",
+                      "start": 25.7054345703125,
+                      "end": 26.181625
+                    },
+                    {
+                      "word": "please?",
+                      "start": 25.7054345703125,
+                      "end": 26.181625
+                    }
+                  ],
+                  "metadata": {
+                    "response_id": 2
+                  }
+                },
+                {
+                  "role": "user",
+                  "content": "Six three nine eight seven nine two nine five one.",
+                  "words": [
+                    {
+                      "word": "Six ",
+                      "start": 27.738999,
+                      "end": 27.898998
+                    },
+                    {
+                      "word": "three ",
+                      "start": 27.898998,
+                      "end": 28.378999999999998
+                    },
+                    {
+                      "word": "nine ",
+                      "start": 28.378999999999998,
+                      "end": 28.619
+                    },
+                    {
+                      "word": "eight ",
+                      "start": 28.619,
+                      "end": 29.019
+                    },
+                    {
+                      "word": "seven ",
+                      "start": 29.019,
+                      "end": 29.498998999999998
+                    },
+                    {
+                      "word": "nine ",
+                      "start": 29.498998999999998,
+                      "end": 29.898998
+                    },
+                    {
+                      "word": "two ",
+                      "start": 29.898998,
+                      "end": 30.398998
+                    },
+                    {
+                      "word": "nine ",
+                      "start": 30.459,
+                      "end": 30.959
+                    },
+                    {
+                      "word": "five ",
+                      "start": 31.059,
+                      "end": 31.503999999999998
+                    },
+                    {
+                      "word": "one.",
+                      "start": 31.503999999999998,
+                      "end": 31.948999999999998
+                    }
+                  ]
+                },
+                {
+                  "role": "agent",
+                  "content": "Thanks, Rahul ji! Uh, aapko kis location ya area mein property chahiye?",
+                  "words": [
+                    {
+                      "word": "Thanks, ",
+                      "start": 34.272375,
+                      "end": 34.7485654296875
+                    },
+                    {
+                      "word": "Rahul ",
+                      "start": 34.7485654296875,
+                      "end": 35.224755859375
+                    },
+                    {
+                      "word": "ji!",
+                      "start": 34.77576782226563,
+                      "end": 35.25195825195313
+                    },
+                    {
+                      "word": " Uh, ",
+                      "start": 35.25195825195313,
+                      "end": 35.72814892578125
+                    },
+                    {
+                      "word": "aapko ",
+                      "start": 35.72814892578125,
+                      "end": 36.20433935546875
+                    },
+                    {
+                      "word": "kis ",
+                      "start": 36.20433935546875,
+                      "end": 36.68052978515625
+                    },
+                    {
+                      "word": "location ",
+                      "start": 36.68052978515625,
+                      "end": 37.15672021484375
+                    },
+                    {
+                      "word": "ya ",
+                      "start": 37.15672021484375,
+                      "end": 37.63291064453125
+                    },
+                    {
+                      "word": "area ",
+                      "start": 37.63291064453125,
+                      "end": 38.10910107421875
+                    },
+                    {
+                      "word": "mein ",
+                      "start": 38.10910107421875,
+                      "end": 38.58529174804688
+                    },
+                    {
+                      "word": "property ",
+                      "start": 38.58529174804688,
+                      "end": 39.061482177734376
+                    },
+                    {
+                      "word": "chahiye?",
+                      "start": 39.02985107421875,
+                      "end": 39.506041748046876
+                    }
+                  ],
+                  "metadata": {
+                    "response_id": 3
+                  }
+                },
+                {
+                  "role": "user",
+                  "content": "Mumbai.",
+                  "words": [
+                    {
+                      "word": "Mumbai.",
+                      "start": 42.309,
+                      "end": 42.809
+                    }
+                  ]
+                },
+                {
+                  "role": "agent",
+                  "content": "Perfect, Rahul ji! Uh, aapko kis type ki property chahiye—jaise flat, villa, ",
+                  "words": [
+                    {
+                      "word": "Perfect, ",
+                      "start": 44.692,
+                      "end": 45.1681904296875
+                    },
+                    {
+                      "word": "Rahul ",
+                      "start": 45.1681904296875,
+                      "end": 45.644380859375
+                    },
+                    {
+                      "word": "ji!",
+                      "start": 45.644380859375,
+                      "end": 46.120571533203126
+                    },
+                    {
+                      "word": " Uh, ",
+                      "start": 46.347875,
+                      "end": 46.8240654296875
+                    },
+                    {
+                      "word": "aapko ",
+                      "start": 46.8240654296875,
+                      "end": 47.300255859375
+                    },
+                    {
+                      "word": "kis ",
+                      "start": 47.300255859375,
+                      "end": 47.77644653320313
+                    },
+                    {
+                      "word": "type ",
+                      "start": 47.77644653320313,
+                      "end": 48.25263696289063
+                    },
+                    {
+                      "word": "ki ",
+                      "start": 48.25263696289063,
+                      "end": 48.728827392578125
+                    },
+                    {
+                      "word": "property ",
+                      "start": 48.728827392578125,
+                      "end": 49.205017822265624
+                    },
+                    {
+                      "word": "chahiye—jaise ",
+                      "start": 49.205017822265624,
+                      "end": 49.68120825195312
+                    },
+                    {
+                      "word": "flat, ",
+                      "start": 49.68120825195312,
+                      "end": 50.15739892578125
+                    },
+                    {
+                      "word": "villa, ",
+                      "start": 50.15739892578125,
+                      "end": 50.63358935546875
+                    }
+                  ],
+                  "metadata": {
+                    "response_id": 4
+                  }
+                },
+                {
+                  "role": "user",
+                  "content": "Net, ",
+                  "words": [
+                    {
+                      "word": "Net, ",
+                      "start": 50.919,
+                      "end": 51.419
+                    }
+                  ]
+                },
+                {
+                  "role": "agent",
+                  "content": "plot, ya commercial space?",
+                  "words": [
+                    {
+                      "word": "plot, ",
+                      "start": 50.63358935546875,
+                      "end": 51.10977978515625
+                    },
+                    {
+                      "word": "ya ",
+                      "start": 51.10977978515625,
+                      "end": 51.58597021484375
+                    },
+                    {
+                      "word": "commercial ",
+                      "start": 51.58597021484375,
+                      "end": 52.06216064453125
+                    },
+                    {
+                      "word": "space?",
+                      "start": 52.06216064453125,
+                      "end": 52.53835107421875
+                    }
+                  ],
+                  "metadata": {
+                    "response_id": 4
+                  }
+                },
+                {
+                  "role": "user",
+                  "content": "net,",
+                  "words": [
+                    {
+                      "word": "net,",
+                      "start": 55.319,
+                      "end": 55.819
+                    }
+                  ]
+                },
+                {
+                  "role": "agent",
+                  "content": "Uh, Rahul ji, thoda clear bata sakte hain aapko kaunsi property type chahiye? Jaise flat, villa, plot, ya kuch aur?",
+                  "words": [
+                    {
+                      "word": "Uh, ",
+                      "start": 59.343,
+                      "end": 59.8191904296875
+                    },
+                    {
+                      "word": "Rahul ",
+                      "start": 59.8191904296875,
+                      "end": 60.295380859375
+                    },
+                    {
+                      "word": "ji, ",
+                      "start": 60.295380859375,
+                      "end": 60.77157153320312
+                    },
+                    {
+                      "word": "thoda ",
+                      "start": 60.77157153320312,
+                      "end": 61.24776196289063
+                    },
+                    {
+                      "word": "clear ",
+                      "start": 61.24776196289063,
+                      "end": 61.72395239257813
+                    },
+                    {
+                      "word": "bata ",
+                      "start": 61.72395239257813,
+                      "end": 62.200142822265626
+                    },
+                    {
+                      "word": "sakte ",
+                      "start": 62.200142822265626,
+                      "end": 62.676333251953125
+                    },
+                    {
+                      "word": "hain ",
+                      "start": 62.5550595703125,
+                      "end": 63.03125
+                    },
+                    {
+                      "word": "aapko ",
+                      "start": 62.5550595703125,
+                      "end": 63.03125
+                    },
+                    {
+                      "word": "kaunsi ",
+                      "start": 62.5550595703125,
+                      "end": 63.03125
+                    },
+                    {
+                      "word": "property ",
+                      "start": 62.5550595703125,
+                      "end": 63.03125
+                    },
+                    {
+                      "word": "type ",
+                      "start": 62.5550595703125,
+                      "end": 63.03125
+                    },
+                    {
+                      "word": "chahiye?",
+                      "start": 62.5550595703125,
+                      "end": 63.03125
+                    },
+                    {
+                      "word": " Jaise ",
+                      "start": 63.03125,
+                      "end": 63.5074404296875
+                    },
+                    {
+                      "word": "flat, ",
+                      "start": 63.5074404296875,
+                      "end": 63.983630859375
+                    },
+                    {
+                      "word": "villa, ",
+                      "start": 63.983630859375,
+                      "end": 64.45982153320313
+                    },
+                    {
+                      "word": "plot, ",
+                      "start": 64.45982153320313,
+                      "end": 64.93601196289063
+                    },
+                    {
+                      "word": "ya ",
+                      "start": 64.93601196289063,
+                      "end": 65.41220239257812
+                    },
+                    {
+                      "word": "kuch ",
+                      "start": 65.41220239257812,
+                      "end": 65.88839282226563
+                    },
+                    {
+                      "word": "aur?",
+                      "start": 65.5836845703125,
+                      "end": 66.059875
+                    }
+                  ],
+                  "metadata": {
+                    "response_id": 5
+                  }
+                },
+                {
+                  "role": "user",
+                  "content": "flat,",
+                  "words": [
+                    {
+                      "word": "flat,",
+                      "start": 66.05900000000001,
+                      "end": 66.55900000000001
+                    }
+                  ]
+                },
+                {
+                  "role": "agent",
+                  "content": "Thank you! Uh, ab aapka approx budget kya hai flat ke liye, Rahul ji?",
+                  "words": [
+                    {
+                      "word": "Thank ",
+                      "start": 69.749,
+                      "end": 70.2251904296875
+                    },
+                    {
+                      "word": "you!",
+                      "start": 70.0443095703125,
+                      "end": 70.5205
+                    },
+                    {
+                      "word": " Uh, ",
+                      "start": 70.5205,
+                      "end": 70.9966904296875
+                    },
+                    {
+                      "word": "ab ",
+                      "start": 70.9966904296875,
+                      "end": 71.472880859375
+                    },
+                    {
+                      "word": "aapka ",
+                      "start": 71.472880859375,
+                      "end": 71.94907153320312
+                    },
+                    {
+                      "word": "approx ",
+                      "start": 71.94907153320312,
+                      "end": 72.42526196289063
+                    },
+                    {
+                      "word": "budget ",
+                      "start": 72.42526196289063,
+                      "end": 72.90145239257812
+                    },
+                    {
+                      "word": "kya ",
+                      "start": 72.90145239257812,
+                      "end": 73.37764282226563
+                    },
+                    {
+                      "word": "hai ",
+                      "start": 73.37764282226563,
+                      "end": 73.85383325195312
+                    },
+                    {
+                      "word": "flat ",
+                      "start": 73.85383325195312,
+                      "end": 74.33002392578125
+                    },
+                    {
+                      "word": "ke ",
+                      "start": 74.01201782226562,
+                      "end": 74.48820825195313
+                    },
+                    {
+                      "word": "liye, ",
+                      "start": 74.01201782226562,
+                      "end": 74.48820825195313
+                    },
+                    {
+                      "word": "Rahul ",
+                      "start": 74.01201782226562,
+                      "end": 74.48820825195313
+                    },
+                    {
+                      "word": "ji?",
+                      "start": 74.01201782226562,
+                      "end": 74.48820825195313
+                    }
+                  ],
+                  "metadata": {
+                    "response_id": 6
+                  }
+                },
+                {
+                  "role": "user",
+                  "content": "One CR.",
+                  "words": [
+                    {
+                      "word": "One ",
+                      "start": 76.45899600000001,
+                      "end": 76.619
+                    },
+                    {
+                      "word": "CR.",
+                      "start": 76.619,
+                      "end": 77.119
+                    }
+                  ]
+                },
+                {
+                  "role": "agent",
+                  "content": "Thanks, Rahul ji! Uh, aapko property dekhne ke liye kab visit karna convenient hoga? Koi preferred date hai?",
+                  "words": [
+                    {
+                      "word": "Thanks, ",
+                      "start": 78.677,
+                      "end": 79.1531904296875
+                    },
+                    {
+                      "word": "Rahul ",
+                      "start": 79.1531904296875,
+                      "end": 79.629380859375
+                    },
+                    {
+                      "word": "ji!",
+                      "start": 79.629380859375,
+                      "end": 80.10557153320312
+                    },
+                    {
+                      "word": " Uh, ",
+                      "start": 80.21770825195313,
+                      "end": 80.69389892578126
+                    },
+                    {
+                      "word": "aapko ",
+                      "start": 80.69389892578126,
+                      "end": 81.17008935546875
+                    },
+                    {
+                      "word": "property ",
+                      "start": 81.17008935546875,
+                      "end": 81.64627978515625
+                    },
+                    {
+                      "word": "dekhne ",
+                      "start": 81.64627978515625,
+                      "end": 82.12247021484374
+                    },
+                    {
+                      "word": "ke ",
+                      "start": 82.12247021484374,
+                      "end": 82.59866064453125
+                    },
+                    {
+                      "word": "liye ",
+                      "start": 82.59866064453125,
+                      "end": 83.07485107421876
+                    },
+                    {
+                      "word": "kab ",
+                      "start": 83.07485107421876,
+                      "end": 83.55104174804687
+                    },
+                    {
+                      "word": "visit ",
+                      "start": 83.55104174804687,
+                      "end": 84.02723217773438
+                    },
+                    {
+                      "word": "karna ",
+                      "start": 84.02723217773438,
+                      "end": 84.50342260742187
+                    },
+                    {
+                      "word": "convenient ",
+                      "start": 84.04564282226562,
+                      "end": 84.52183325195313
+                    },
+                    {
+                      "word": "hoga?",
+                      "start": 84.04564282226562,
+                      "end": 84.52183325195313
+                    },
+                    {
+                      "word": " Koi ",
+                      "start": 84.52183325195313,
+                      "end": 84.99802392578125
+                    },
+                    {
+                      "word": "preferred ",
+                      "start": 84.99802392578125,
+                      "end": 85.47421435546875
+                    },
+                    {
+                      "word": "date ",
+                      "start": 85.47421435546875,
+                      "end": 85.95040478515625
+                    },
+                    {
+                      "word": "hai?",
+                      "start": 85.52976782226563,
+                      "end": 86.00595825195313
+                    }
+                  ],
+                  "metadata": {
+                    "response_id": 7
+                  }
+                },
+                {
+                  "role": "user",
+                  "content": "Tomorrow at five PM.",
+                  "words": [
+                    {
+                      "word": "Tomorrow ",
+                      "start": 87.409,
+                      "end": 87.909
+                    },
+                    {
+                      "word": "at ",
+                      "start": 87.96900600000001,
+                      "end": 88.209
+                    },
+                    {
+                      "word": "five ",
+                      "start": 88.209,
+                      "end": 88.44900000000001
+                    },
+                    {
+                      "word": "PM.",
+                      "start": 88.44900000000001,
+                      "end": 88.94900000000001
+                    }
+                  ]
+                },
+                {
+                  "role": "agent",
+                  "content": "Just to confirm, aap Rahul hain, jo Mumbai mein ek flat dhoondh rahe hain, budget around ₹1 crore hai, aur aap kal 5 baje property tour karna chahte hain, sahi hai?",
+                  "words": [
+                    {
+                      "word": "Just ",
+                      "start": 90.739,
+                      "end": 91.2151904296875
+                    },
+                    {
+                      "word": "to ",
+                      "start": 91.2151904296875,
+                      "end": 91.691380859375
+                    },
+                    {
+                      "word": "confirm, ",
+                      "start": 91.691380859375,
+                      "end": 92.16757153320313
+                    },
+                    {
+                      "word": "aap ",
+                      "start": 92.16757153320313,
+                      "end": 92.64376196289062
+                    },
+                    {
+                      "word": "Rahul ",
+                      "start": 92.64376196289062,
+                      "end": 93.11995239257813
+                    },
+                    {
+                      "word": "hain, ",
+                      "start": 93.11995239257813,
+                      "end": 93.59614282226562
+                    },
+                    {
+                      "word": "jo ",
+                      "start": 93.59614282226562,
+                      "end": 94.07233325195313
+                    },
+                    {
+                      "word": "Mumbai ",
+                      "start": 94.07233325195313,
+                      "end": 94.54852392578125
+                    },
+                    {
+                      "word": "mein ",
+                      "start": 94.54852392578125,
+                      "end": 95.02471435546875
+                    },
+                    {
+                      "word": "ek ",
+                      "start": 95.02471435546875,
+                      "end": 95.50090478515625
+                    },
+                    {
+                      "word": "flat ",
+                      "start": 95.50090478515625,
+                      "end": 95.97709521484374
+                    },
+                    {
+                      "word": "dhoondh ",
+                      "start": 95.97709521484374,
+                      "end": 96.45328564453125
+                    },
+                    {
+                      "word": "rahe ",
+                      "start": 96.45328564453125,
+                      "end": 96.92947607421875
+                    },
+                    {
+                      "word": "hain, ",
+                      "start": 96.92947607421875,
+                      "end": 97.40566674804687
+                    },
+                    {
+                      "word": "budget ",
+                      "start": 97.40566674804687,
+                      "end": 97.88185717773437
+                    },
+                    {
+                      "word": "around ",
+                      "start": 97.88185717773437,
+                      "end": 98.35804760742188
+                    },
+                    {
+                      "word": "₹1 ",
+                      "start": 98.35804760742188,
+                      "end": 98.83423803710937
+                    },
+                    {
+                      "word": "crore ",
+                      "start": 98.83423803710937,
+                      "end": 99.31042846679688
+                    },
+                    {
+                      "word": "hai, ",
+                      "start": 99.31042846679688,
+                      "end": 99.786619140625
+                    },
+                    {
+                      "word": "aur ",
+                      "start": 99.786619140625,
+                      "end": 100.2628095703125
+                    },
+                    {
+                      "word": "aap ",
+                      "start": 100.2628095703125,
+                      "end": 100.739
+                    },
+                    {
+                      "word": "kal ",
+                      "start": 100.739,
+                      "end": 101.2151904296875
+                    },
+                    {
+                      "word": "5 ",
+                      "start": 101.13976782226563,
+                      "end": 101.61595825195313
+                    },
+                    {
+                      "word": "baje ",
+                      "start": 101.13976782226563,
+                      "end": 101.61595825195313
+                    },
+                    {
+                      "word": "property ",
+                      "start": 101.13976782226563,
+                      "end": 101.61595825195313
+                    },
+                    {
+                      "word": "tour ",
+                      "start": 101.13976782226563,
+                      "end": 101.61595825195313
+                    },
+                    {
+                      "word": "karna ",
+                      "start": 101.13976782226563,
+                      "end": 101.61595825195313
+                    },
+                    {
+                      "word": "chahte ",
+                      "start": 101.13976782226563,
+                      "end": 101.61595825195313
+                    },
+                    {
+                      "word": "hain, ",
+                      "start": 101.13976782226563,
+                      "end": 101.61595825195313
+                    },
+                    {
+                      "word": "sahi ",
+                      "start": 101.13976782226563,
+                      "end": 101.61595825195313
+                    },
+                    {
+                      "word": "hai?",
+                      "start": 101.13976782226563,
+                      "end": 101.61595825195313
+                    }
+                  ],
+                  "metadata": {
+                    "response_id": 9
+                  }
+                },
+                {
+                  "role": "user",
+                  "content": "Yes,",
+                  "words": [
+                    {
+                      "word": "Yes,",
+                      "start": 103.47900000000001,
+                      "end": 103.97900000000001
+                    }
+                  ]
+                },
+                {
+                  "role": "agent",
+                  "content": "Perfect! Humara property advisor aapko jaldi contact karega visit finalize karne ke liye. Thank you so much for your time, Rahul ji 😊",
+                  "words": [
+                    {
+                      "word": "Perfect!",
+                      "start": 105.818,
+                      "end": 106.2941904296875
+                    },
+                    {
+                      "word": " Humara ",
+                      "start": 106.58370825195313,
+                      "end": 107.05989892578125
+                    },
+                    {
+                      "word": "property ",
+                      "start": 107.05989892578125,
+                      "end": 107.53608935546875
+                    },
+                    {
+                      "word": "advisor ",
+                      "start": 107.53608935546875,
+                      "end": 108.01227978515625
+                    },
+                    {
+                      "word": "aapko ",
+                      "start": 108.01227978515625,
+                      "end": 108.48847021484374
+                    },
+                    {
+                      "word": "jaldi ",
+                      "start": 108.48847021484374,
+                      "end": 108.96466064453125
+                    },
+                    {
+                      "word": "contact ",
+                      "start": 108.96466064453125,
+                      "end": 109.44085107421876
+                    },
+                    {
+                      "word": "karega ",
+                      "start": 109.44085107421876,
+                      "end": 109.91704174804687
+                    },
+                    {
+                      "word": "visit ",
+                      "start": 109.91704174804687,
+                      "end": 110.39323217773438
+                    },
+                    {
+                      "word": "finalize ",
+                      "start": 110.39323217773438,
+                      "end": 110.86942260742188
+                    },
+                    {
+                      "word": "karne ",
+                      "start": 110.86942260742188,
+                      "end": 111.34561303710937
+                    },
+                    {
+                      "word": "ke ",
+                      "start": 111.3059345703125,
+                      "end": 111.782125
+                    },
+                    {
+                      "word": "liye.",
+                      "start": 111.3059345703125,
+                      "end": 111.782125
+                    },
+                    {
+                      "word": " Thank ",
+                      "start": 111.782125,
+                      "end": 112.2583154296875
+                    },
+                    {
+                      "word": "you ",
+                      "start": 112.2583154296875,
+                      "end": 112.734505859375
+                    },
+                    {
+                      "word": "so ",
+                      "start": 112.734505859375,
+                      "end": 113.21069653320312
+                    },
+                    {
+                      "word": "much ",
+                      "start": 113.21069653320312,
+                      "end": 113.68688696289063
+                    },
+                    {
+                      "word": "for ",
+                      "start": 113.45464282226563,
+                      "end": 113.93083325195313
+                    },
+                    {
+                      "word": "your ",
+                      "start": 113.45464282226563,
+                      "end": 113.93083325195313
+                    },
+                    {
+                      "word": "time, ",
+                      "start": 113.45464282226563,
+                      "end": 113.93083325195313
+                    },
+                    {
+                      "word": "Rahul ",
+                      "start": 113.45464282226563,
+                      "end": 113.93083325195313
+                    },
+                    {
+                      "word": "ji ",
+                      "start": 113.45464282226563,
+                      "end": 113.93083325195313
+                    },
+                    {
+                      "word": "😊",
+                      "start": 113.45464282226563,
+                      "end": 113.93083325195313
+                    }
+                  ],
+                  "metadata": {
+                    "response_id": 10
+                  }
+                }
+              ],
+              "recording_url": "https://dxc03zgurdly9.cloudfront.net/038ba12aa1897449b20b3659f7d33c031a3f5ebc5a63f0431e52d40517d69502/recording.wav",
+              "recording_multi_channel_url": "https://dxc03zgurdly9.cloudfront.net/038ba12aa1897449b20b3659f7d33c031a3f5ebc5a63f0431e52d40517d69502/recording_multichannel.wav",
+              "public_log_url": "https://dxc03zgurdly9.cloudfront.net/038ba12aa1897449b20b3659f7d33c031a3f5ebc5a63f0431e52d40517d69502/public.log",
+              "disconnection_reason": "user_hangup",
+              "latency": {
+                "llm": {
+                  "p50": 1049,
+                  "p90": 1277,
+                  "p95": 1346,
+                  "p99": 1401.2,
+                  "min": 576,
+                  "max": 1415,
+                  "num": 11,
+                  "values": [
+                    1003,
+                    1230,
+                    666,
+                    670,
+                    1277,
+                    1049,
+                    1126,
+                    666,
+                    1415,
+                    1207,
+                    576
+                  ]
+                },
+                "e2e": {
+                  "p50": 1883,
+                  "p90": 3256.7999999999997,
+                  "p95": 3390.4,
+                  "p99": 3497.2799999999997,
+                  "min": 1538,
+                  "max": 3524,
+                  "num": 9,
+                  "values": [
+                    1946,
+                    1538,
+                    2308,
+                    1883,
+                    3524,
+                    3190,
+                    1558,
+                    1790,
+                    1839
+                  ]
+                },
+                "tts": {
+                  "p50": 239,
+                  "p90": 267,
+                  "p95": 275,
+                  "p99": 281.4,
+                  "min": 225,
+                  "max": 283,
+                  "num": 11,
+                  "values": [
+                    283,
+                    252,
+                    239,
+                    267,
+                    238,
+                    230,
+                    232,
+                    248,
+                    239,
+                    248,
+                    225
+                  ]
+                }
+              },
+              "call_cost": {
+                "product_costs": [
+                  {
+                    "product": "cartesia_tts",
+                    "unit_price": 0.1166667,
+                    "cost": 13.5333333
+                  },
+                  {
+                    "product": "gpt_4_1",
+                    "unit_price": 0.075,
+                    "cost": 8.7
+                  }
+                ],
+                "total_duration_unit_price": 0.1916667,
+                "total_duration_seconds": 116,
+                "combined_cost": 22.2333333
+              },
+              "call_analysis": {
+                "call_summary": "The user, Rahul, is looking for a flat in Mumbai with a budget of ₹1 crore and has scheduled a property visit for tomorrow at 5 PM. The agent confirmed the details and assured that a property advisor will contact Rahul soon.",
+                "in_voicemail": false,
+                "user_sentiment": "Positive",
+                "call_successful": true,
+                "custom_analysis_data": {
+                  "detailed_callsummary": "The call involved the agent gathering information from the user, Rahul, regarding his property needs. Rahul provided his name, phone number, preferred location (Mumbai), type of property (flat), budget (₹1 crore), and a convenient time for a property visit (tomorrow at 5 PM). The agent confirmed all details and assured that a property advisor would reach out to finalize the visit."
+                }
+              },
+              "opt_out_sensitive_data_storage": false,
+              "data_storage_setting": "everything",
+              "opt_in_signed_url": false,
+              "llm_token_usage": {
+                "values": [
+                  963,
+                  1153,
+                  1179,
+                  1216,
+                  1244,
+                  1284,
+                  1327,
+                  1357,
+                  1396,
+                  1399,
+                  1457
+                ],
+                "average": 1270.4545454545455,
+                "num_requests": 11
+              },
+              "access_token": "eyJhbGciOiJIUzI1NiJ9.eyJ2aWRlbyI6eyJyb29tSm9pbiI6dHJ1ZSwicm9vbSI6IndlYl9jYWxsX2ZiZjY1MTI0Njg3YjVkNDYzYzI2YTRjZGViNyJ9LCJpc3MiOiJBUElqWGZBMzVHTmM3WHgiLCJleHAiOjE3NjA1ODg2ODIsIm5iZiI6MCwic3ViIjoiY2xpZW50In0.DdD1hAhmzSQnq_t9lGk-YdzhmvA_YwbsXJNTQ1YZppo"
+            }
+          },
+          "webhookUrl": "https://rahul777655.app.n8n.cloud/webhook/setiment_analysis",
+          "executionMode": "production"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook1": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Switch1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "a095f24e-c9f5-4092-851d-af3c2e461326",
+  "meta": {
+    "instanceId": "0de80b2f532e9951931a3d9b0483d622fb9cbec8eeeb39f62ca1eafa1a821a81"
+  },
+  "id": "ZPUOaq2pk8MfnwfM",
+  "tags": []
+}
